@@ -1,0 +1,476 @@
+/* ===================================================
+   THEME VARIABLES
+   Two sets of colors. Which set is "active" is decided
+   by whether <body> has the class "light".
+   Everything else in this file just references these
+   variables instead of hardcoding colors — that's what
+   makes the whole page re-color instantly on toggle.
+=================================================== */
+body {
+  --bg: #000000;
+  --surface: #17172a;
+  --surface-hover: #232338;
+  --text: #ffffff;
+  --text-muted: #b8bce0;
+  --accent: #6f7bff;
+  --accent-hover: #5964e0;
+  --x-color: #6fb6ff;
+  --o-color: #ffb86f;
+  --win-color: #3fae64;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent-glow: rgba(111, 123, 255, 0.16);
+}
+
+body.light {
+  --bg: #ffffff;
+  --surface: #f4f5fb;
+  --surface-hover: #e9ebfb;
+  --text: #202339;
+  --text-muted: #5c6088;
+  --accent: #6f7bff;
+  --accent-hover: #5964e0;
+  --x-color: #2f7fd4;
+  --o-color: #d97f2b;
+  --win-color: #2f9e56;
+  --border: rgba(0, 0, 0, 0.08);
+  --accent-glow: rgba(111, 123, 255, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  /* Soft dot grid + a faint glow behind the hero — reads as texture, not stripes */
+  background-image:
+    radial-gradient(circle, var(--border) 1.5px, transparent 1.5px),
+    radial-gradient(ellipse 900px 500px at 85% 5%, var(--accent-glow), transparent 70%);
+  background-size: 28px 28px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+  color: var(--text);
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ===================================================
+   NAVBAR — just holds the theme toggle now
+=================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 48px;
+}
+
+/* ===================================================
+   HERO
+=================================================== */
+.hero {
+  padding: 20px 64px 64px;
+}
+
+.hero-content {
+  max-width: 780px;
+}
+
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--x-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: white;
+}
+
+.brand-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.brand-caption {
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin: 0 0 16px;
+}
+
+.hero h1 {
+  font-size: 3.4rem;
+  line-height: 1.1;
+  margin: 0 0 28px;
+  font-weight: 800;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(90deg, var(--accent), var(--o-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero .tagline {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+#themeToggle {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#themeToggle:hover {
+  background: var(--surface-hover);
+}
+
+/* ===================================================
+   MAIN GAME AREA
+=================================================== */
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px; /* generous space between game card, scoreboard, footer */
+}
+
+/* The game card: mode/difficulty controls, board, and restart button
+   all live inside this one boxed container. */
+.game-panel {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 56px 40px 64px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* A soft color-mixing glow in the corner, echoing the hero's accent blend */
+.game-panel::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.game-panel > * {
+  position: relative; /* sit above the glow */
+}
+
+#status {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  min-height: 24px;
+  color: var(--text-muted);
+}
+
+/* ===================================================
+   MODE / DIFFICULTY CONTROLS
+=================================================== */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.control-group label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.toggle-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.toggle-btn {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggle-btn:hover {
+  background: var(--surface-hover);
+}
+
+.toggle-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Difficulty row is hidden entirely in 1v1 mode via JS toggling this class */
+#difficultyGroup.hidden {
+  display: none;
+}
+
+/* ===================================================
+   BOARD
+=================================================== */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 130px);
+  grid-template-rows: repeat(3, 130px);
+  gap: 12px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.cell {
+  background: var(--surface-hover);
+  border: none;
+  border-radius: 10px;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cell:hover:not(:disabled) {
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.x {
+  color: var(--x-color);
+}
+
+.cell.o {
+  color: var(--o-color);
+}
+
+.cell.win {
+  background: var(--win-color);
+  color: white;
+}
+
+#reset {
+  margin-top: 24px;
+  padding: 12px 40px;
+  min-width: 220px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+#reset:hover {
+  background: var(--accent-hover);
+}
+
+/* ===================================================
+   SCOREBOARD / RECORDS
+=================================================== */
+.scoreboard {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 40px 48px;
+  text-align: left;
+}
+
+.scoreboard::before {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  left: -120px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.scoreboard > * {
+  position: relative; /* sit above the glow */
+}
+
+.scoreboard h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.score-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.score-box {
+  flex: 1;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-value {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+#clearHistory {
+  display: block;
+  margin: 0 auto 16px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+#clearHistory:hover {
+  background: var(--surface);
+}
+
+.scoreboard h3 {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.history-list li {
+  background: var(--surface);
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+}
+
+.history-list li .result {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.empty-note {
+  justify-content: center !important;
+  font-style: italic;
+}
+
+/* ===================================================
+   FOOTER
+=================================================== */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 16px 0 40px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .board {
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(3, 90px);
+    gap: 8px;
+  }
+ 
+  .cell {
+    font-size: 2rem;
+  }
+ 
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+ 
+  .hero .tagline {
+    font-size: 1rem;
+  }
+ 
+  .toggle-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+ 
+  #reset {
+    min-width: 0;
+    width: 100%;
+  }
+ 
+  .score-row {
+    flex-direction: column;
+  }
+}

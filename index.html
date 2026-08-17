@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NINEFOLD — Smart Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ===== Top navbar: just the theme toggle, brand now lives in the hero ===== -->
+    <header class="navbar">
+        <button id="themeToggle" aria-label="Toggle light and dark mode">🌙 Dark</button>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <div class="hero-brand">
+                <span class="brand-icon">✦</span>
+                <div>
+                    <div class="brand-name">NINEFOLD</div>
+                    <div class="brand-caption">SMART TIC-TAC-TOE</div>
+                </div>
+            </div>
+
+            <p class="eyebrow">STRATEGY &bull; LOGIC &bull; VICTORY</p>
+
+            <h1>Read the board.<br /><span class="highlight"> Win the moment.</span></h1>
+
+            <p class="tagline">Every move counts. Make yours matter.</p>
+        </div>
+    </section>
+
+    <main class="page">
+
+        <!-- ===== Game card: everything you play with lives here ===== -->
+        <section class="game-panel">
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Mode</label>
+                    <div class="toggle-group" id="modeGroup">
+                        <button class="toggle-btn active" data-mode="pvp">1 vs 1</button>
+                        <button class="toggle-btn" data-mode="ai">Vs Computer</button>
+                    </div>
+                </div>
+
+                <!-- Only shown when "Vs Computer" is selected -->
+                <div class="control-group" id="difficultyGroup">
+                    <label>Difficulty</label>
+                    <div class="toggle-group" id="difficultyButtons">
+                        <button class="toggle-btn active" data-level="easy">Easy</button>
+                        <button class="toggle-btn" data-level="medium">Medium</button>
+                        <button class="toggle-btn" data-level="hard">Hard</button>
+                    </div>
+                </div>
+            </div>
+
+            <p id="status">Player X's turn</p>
+
+            <div class="board" id="board">
+                <button class="cell" data-index="0"></button>
+                <button class="cell" data-index="1"></button>
+                <button class="cell" data-index="2"></button>
+                <button class="cell" data-index="3"></button>
+                <button class="cell" data-index="4"></button>
+                <button class="cell" data-index="5"></button>
+                <button class="cell" data-index="6"></button>
+                <button class="cell" data-index="7"></button>
+                <button class="cell" data-index="8"></button>
+            </div>
+
+            <button id="reset" type="button">Restart Game</button>
+        </section>
+
+        <!-- ===== Scoreboard / records — its own card, below the game ===== -->
+        <section class="scoreboard">
+            <h2>Scoreboard</h2>
+            <div class="score-row">
+                <div class="score-box">
+                    <span class="score-label">X Wins</span>
+                    <span class="score-value" id="scoreX">0</span>
+                </div>
+                <div class="score-box">
+                    <span class="score-label">O Wins</span>
+                    <span class="score-value" id="scoreO">0</span>
+                </div>
+                <div class="score-box">
+                    <span class="score-label">Draws</span>
+                    <span class="score-value" id="scoreDraw">0</span>
+                </div>
+            </div>
+            <button id="clearHistory">Clear Records</button>
+
+            <h3>Recent Games</h3>
+            <ul id="historyList" class="history-list">
+                <li class="empty-note">No games played yet.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>NINEFOLD — built step by step, one grid at a time.</p>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
